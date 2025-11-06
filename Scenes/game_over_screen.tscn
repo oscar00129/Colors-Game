@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3 uid="uid://col3viaqgydls"]
+
+[ext_resource type="Script" uid="uid://cbygdvg54rvs" path="res://Scripts/game_over_screen.gd" id="1_0gua7"]
+[ext_resource type="FontFile" uid="uid://toqjfpjb2htx" path="res://Assets/Retro Gaming.ttf" id="2_jb6in"]
+[ext_resource type="AudioStream" uid="uid://bp4sjbvdmfa1b" path="res://Assets/Audio/GameOver.wav" id="3_y8man"]
+
+[node name="GameOverScreen" type="CanvasLayer"]
+script = ExtResource("1_0gua7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -67.0
+offset_top = -46.5
+offset_right = 67.0
+offset_bottom = 46.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="lblGameOver" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.28627452, 0.28627452, 0.28627452, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("2_jb6in")
+theme_override_font_sizes/font_size = 40
+text = "Juego Terminado"
+
+[node name="lblScore" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.28627452, 0.28627452, 0.28627452, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("2_jb6in")
+theme_override_font_sizes/font_size = 40
+text = "Puntaje: 0"
+horizontal_alignment = 1
+
+[node name="btnReStart" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_jb6in")
+theme_override_font_sizes/font_size = 30
+text = "Iniciar de Nuevo"
+
+[node name="btnMenu" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_jb6in")
+theme_override_font_sizes/font_size = 30
+text = "Salir al Menú"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_y8man")
+
+[connection signal="pressed" from="VBoxContainer/btnReStart" to="." method="_on_btn_re_start_pressed"]
+[connection signal="pressed" from="VBoxContainer/btnMenu" to="." method="_on_btn_menu_pressed"]

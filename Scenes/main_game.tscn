@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=3 uid="uid://d2a6o5pp53mxs"]
+
+[ext_resource type="PackedScene" uid="uid://c1xl8dt1etfru" path="res://Prefabs/blue_button.tscn" id="1_6j5ir"]
+[ext_resource type="Script" uid="uid://bw2kogmayjcjh" path="res://Scripts/main_game.gd" id="1_mgc0q"]
+[ext_resource type="PackedScene" uid="uid://b26y2a674kwn7" path="res://Prefabs/green_button.tscn" id="2_mgc0q"]
+[ext_resource type="PackedScene" uid="uid://bxvme85xs72dc" path="res://Prefabs/red_button.tscn" id="3_bb2iq"]
+[ext_resource type="PackedScene" uid="uid://2x3xrhdk1wxh" path="res://Prefabs/yellow_button.tscn" id="4_18r40"]
+[ext_resource type="PackedScene" uid="uid://b3f7tavo403ay" path="res://Scenes/game_interface.tscn" id="6_bb2iq"]
+
+[node name="MainGame" type="CanvasLayer"]
+script = ExtResource("1_mgc0q")
+
+[node name="GridContainer" type="GridContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -34.0
+offset_top = -34.0
+offset_right = 34.0
+offset_bottom = 34.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(4, 4)
+pivot_offset = Vector2(34, 34)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+columns = 2
+
+[node name="BlueButton" parent="GridContainer" instance=ExtResource("1_6j5ir")]
+layout_mode = 2
+
+[node name="GreenButton" parent="GridContainer" instance=ExtResource("2_mgc0q")]
+layout_mode = 2
+button_index = 1
+
+[node name="RedButton" parent="GridContainer" instance=ExtResource("3_bb2iq")]
+layout_mode = 2
+button_index = 2
+
+[node name="YellowButton" parent="GridContainer" instance=ExtResource("4_18r40")]
+layout_mode = 2
+button_index = 3
+
+[node name="GameInterface" parent="." instance=ExtResource("6_bb2iq")]
+
+[connection signal="can_click_signal" from="." to="GridContainer/BlueButton" method="_on_main_game_can_click_signal"]
+[connection signal="can_click_signal" from="." to="GridContainer/GreenButton" method="_on_main_game_can_click_signal"]
+[connection signal="can_click_signal" from="." to="GridContainer/RedButton" method="_on_main_game_can_click_signal"]
+[connection signal="can_click_signal" from="." to="GridContainer/YellowButton" method="_on_main_game_can_click_signal"]
+[connection signal="cannot_click_signal" from="." to="GridContainer/BlueButton" method="_on_main_game_cannot_click_signal"]
+[connection signal="cannot_click_signal" from="." to="GridContainer/GreenButton" method="_on_main_game_cannot_click_signal"]
+[connection signal="cannot_click_signal" from="." to="GridContainer/RedButton" method="_on_main_game_cannot_click_signal"]
+[connection signal="cannot_click_signal" from="." to="GridContainer/YellowButton" method="_on_main_game_cannot_click_signal"]
+[connection signal="button_index_clicked" from="GridContainer/BlueButton" to="." method="_on_button_index_clicked"]
+[connection signal="button_index_clicked" from="GridContainer/GreenButton" to="." method="_on_button_index_clicked"]
+[connection signal="button_index_clicked" from="GridContainer/RedButton" to="." method="_on_button_index_clicked"]
+[connection signal="button_index_clicked" from="GridContainer/YellowButton" to="." method="_on_button_index_clicked"]

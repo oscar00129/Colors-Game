@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=3 uid="uid://b26y2a674kwn7"]
+
+[ext_resource type="Texture2D" uid="uid://cgw1lv3sp205f" path="res://Assets/green-box.png" id="1_s341s"]
+[ext_resource type="Texture2D" uid="uid://duy358bqyyu7w" path="res://Assets/h-green-box.png" id="2_s341s"]
+[ext_resource type="Script" uid="uid://cs2a0o2vrx23c" path="res://Scripts/button.gd" id="3_v3qnf"]
+[ext_resource type="AudioStream" uid="uid://do68duw8fcika" path="res://Assets/Audio/D.wav" id="4_s341s"]
+
+[sub_resource type="Animation" id="Animation_2cxa5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture_normal")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_s341s")]
+}
+
+[sub_resource type="Animation" id="Animation_2kpdm"]
+resource_name = "click"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture_normal")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [ExtResource("1_s341s"), ExtResource("2_s341s"), ExtResource("1_s341s")]
+}
+
+[sub_resource type="Animation" id="Animation_q7tpn"]
+resource_name = "idle"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4aeby"]
+_data = {
+&"RESET": SubResource("Animation_2cxa5"),
+&"click": SubResource("Animation_2kpdm"),
+&"idle": SubResource("Animation_q7tpn")
+}
+
+[node name="GreenButton" type="TextureButton"]
+offset_right = 32.0
+offset_bottom = 32.0
+scale = Vector2(4, 4)
+texture_normal = ExtResource("1_s341s")
+texture_pressed = ExtResource("2_s341s")
+script = ExtResource("3_v3qnf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_4aeby")
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_s341s")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]

@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=3 uid="uid://bxvme85xs72dc"]
+
+[ext_resource type="Texture2D" uid="uid://kvj47lt8n28t" path="res://Assets/red-box.png" id="1_mawwj"]
+[ext_resource type="Texture2D" uid="uid://dn4t14q2lly6a" path="res://Assets/h-red-box.png" id="2_mawwj"]
+[ext_resource type="Script" uid="uid://cs2a0o2vrx23c" path="res://Scripts/button.gd" id="3_10uqc"]
+[ext_resource type="AudioStream" uid="uid://b0ru0pfcqsb40" path="res://Assets/Audio/E.wav" id="4_mawwj"]
+
+[sub_resource type="Animation" id="Animation_2cxa5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture_normal")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_mawwj")]
+}
+
+[sub_resource type="Animation" id="Animation_2kpdm"]
+resource_name = "click"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture_normal")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [ExtResource("1_mawwj"), ExtResource("2_mawwj"), ExtResource("1_mawwj")]
+}
+
+[sub_resource type="Animation" id="Animation_q7tpn"]
+resource_name = "idle"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4aeby"]
+_data = {
+&"RESET": SubResource("Animation_2cxa5"),
+&"click": SubResource("Animation_2kpdm"),
+&"idle": SubResource("Animation_q7tpn")
+}
+
+[node name="RedButton" type="TextureButton"]
+offset_right = 32.0
+offset_bottom = 32.0
+scale = Vector2(4, 4)
+texture_normal = ExtResource("1_mawwj")
+texture_pressed = ExtResource("2_mawwj")
+script = ExtResource("3_10uqc")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_4aeby")
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_mawwj")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
